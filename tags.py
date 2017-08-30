@@ -1,8 +1,5 @@
 from collections import defaultdict, namedtuple
 import re
-import logging
-
-logger = logging.getLogger('binja_database')
 
 tagsdb = None
 
