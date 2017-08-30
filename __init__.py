@@ -25,6 +25,7 @@ def new_init(self, provider):
     def new_set_current_binary_view(new_view):
         # Store old TagsDB in old View
         if self.interpreter.current_view and tags.tagsdb:
+            tags.tagsdb.bv = None
             self.interpreter.current_view.store_metadata('tagsdb', pickle.dumps(tags.tagsdb))
 
         # Set new view
@@ -37,6 +38,7 @@ def new_init(self, provider):
         # Load current view's TagsDB
         try:
             tags.tagsdb = pickle.loads(new_view.query_metadata('tagsdb'))
+            tags.tagsdb.bv = new_view
         except KeyError:
             tags.tagsdb = tags.TagsDatabase(new_view)
 
