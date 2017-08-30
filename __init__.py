@@ -2,7 +2,7 @@ from binaryninja import scriptingprovider
 import binja_function
 import binja_view
 import binja_database
-import pickle
+import cPickle as pickle
 
 curr_init = scriptingprovider.PythonScriptingInstance.__init__
 
