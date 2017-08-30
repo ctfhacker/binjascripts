@@ -1,7 +1,7 @@
 from binaryninja import scriptingprovider
 import binja_function
 import binja_view
-import binja_database
+import tags
 import cPickle as pickle
 
 curr_init = scriptingprovider.PythonScriptingInstance.__init__
@@ -24,8 +24,8 @@ def new_init(self, provider):
     """
     def new_set_current_binary_view(new_view):
         # Store old TagsDB in old View
-        if self.interpreter.current_view and binja_database.tagsdb:
-            self.interpreter.current_view.store_metadata('tagsdb', pickle.dumps(binja_database.tagsdb))
+        if self.interpreter.current_view and tags.tagsdb:
+            self.interpreter.current_view.store_metadata('tagsdb', pickle.dumps(tags.tagsdb))
 
         # Set new view
         self.interpreter.current_view = new_view
@@ -36,9 +36,9 @@ def new_init(self, provider):
 
         # Load current view's TagsDB
         try:
-            binja_database.tagsdb = pickle.loads(new_view.query_metadata('tagsdb'))
+            tags.tagsdb = pickle.loads(new_view.query_metadata('tagsdb'))
         except KeyError:
-            binja_database.tagsdb = binja_database.TagsDatabase(new_view)
+            tags.tagsdb = tags.TagsDatabase(new_view)
 
     self.perform_set_current_binary_view = new_set_current_binary_view
 
@@ -62,7 +62,7 @@ def new_init(self, provider):
         locals['mlil'] = binja_function.current_function.medium_level_il
         locals['mlilssa'] = binja_function.current_function.medium_level_il.ssa_form
         locals['h'] = binja_function.current_address
-        locals['tags'] = binja_database.tagsdb
+        locals['tags'] = tags.tagsdb
         curr_runsource(*args)
 
     interpreter_thread.interpreter.runsource = new_runsource
