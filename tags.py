@@ -32,9 +32,9 @@ class TagsDatabase(object):
         curr_func = curr_func[0]
         self._db[address][tagname] = data
         curr_comment = curr_func.get_comment_at(address)
-        new_tag = self.create_tag(tagname, data)
+        new_tag = self._create_tag(tagname, data)
         if new_tag not in curr_comment:
-            curr_func.set_comment_at(address, curr_comment + self.create_tag(tagname, data))
+            curr_func.set_comment_at(address, curr_comment + self._create_tag(tagname, data))
 
         if curr_func.start == address:
             xrefs = [xref.address for xref in self.bv.get_code_refs(address)]
@@ -44,11 +44,11 @@ class TagsDatabase(object):
                     continue
                 curr_func = curr_func[0]
                 curr_comment = curr_func.get_comment_at(xref)
-                new_tag = self.create_tag(tagname, data)
+                new_tag = self._create_tag(tagname, data)
                 if new_tag not in curr_comment:
-                    curr_func.set_comment_at(xref, curr_comment + self.create_tag(tagname, data))
+                    curr_func.set_comment_at(xref, curr_comment + self._create_tag(tagname, data))
 
-    def create_tag(self, tagname, data):
+    def _create_tag(self, tagname, data):
         """
         Create the string format for comments
         
