@@ -38,7 +38,8 @@ pip install sphinx
 ```
 
 ```
-sphinx-apidoc -f -o docs/source/ .; cd docs/; make clean; make html; cd ..
+sphinx-apidoc -f -o docs/source/ .; cd docs/; clean; make html; cd ..
+open docs/html/index.html
 ```
 
 ## License

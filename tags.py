@@ -91,8 +91,7 @@ class TagsDatabase(object):
 
     def select(self, *args):
         """
-        Return all tags with the given tagname
-
+        Return all tags with the given tagname 
         :param str/int/long addr/tagname: Address or Tagname
         :param str/int/long addr/tagname: Address or Tagname
         :return: Requested tags or addresses
