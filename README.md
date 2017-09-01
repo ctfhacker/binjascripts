@@ -2,34 +2,6 @@
 
 Heavily inspired by the work by Aaron Portnoy and arizvisa on [using IDA Pro as a Data Store](https://www.youtube.com/watch?v=A4yXdir_59E#).
 
-## Install
-
-#### Change to the `plugins directory`
-
-Mac
-
-```
-cd ~/Library/Application Support/Binary Ninja/plugins
-```
-
-Linux
-
-```
-cd ~/.binaryninja/plugins
-```
-
-Windows
-
-```
-cd %APPDATA%\Binary Ninja\plugins
-```
-
-#### Clone
-
-```
-git clone https://github.com/ctfhacker/binjascripts
-```
-
 ## Features
 
 Shortened API for faster Binja terminal hacking..
@@ -57,6 +29,34 @@ tags.select(tagname)
 tags.select(address)
 tags.select(address, tagname)
 tags.select(tagname, address)
+```
+
+## Install
+
+### Change to the `plugins directory`
+
+*Mac*
+
+```
+cd ~/Library/Application Support/Binary Ninja/plugins
+```
+
+*Linu*
+
+```
+cd ~/.binaryninja/plugins
+```
+
+*Window*
+
+```
+cd %APPDATA%\Binary Ninja\plugins
+```
+
+### Clone
+
+```
+git clone https://github.com/ctfhacker/binjascripts
 ```
 
 ## Building the docs
