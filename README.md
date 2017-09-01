@@ -12,13 +12,32 @@ mlil - current_function.medium_level_il
 mlilssa - current_function.medium_level_il.ssa_form
 ```
 
-Tag system
+### Tag system
+
+Creating new tags
 
 ```
 tags.add(address, tagname, data)
 ```
 
+Querying existing tags
 
+```
+tags.select(tagname)
+tags.select(address)
+tags.select(address, tagname)
+tags.select(tagname, address)
+```
+
+## Building the docs
+
+```
+pip install sphinx
+```
+
+```
+sphinx-apidoc -f -o docs/source/ .; cd docs/; make clean; make html; cd ..
+```
 
 ## License
 
