@@ -60,11 +60,12 @@ def new_init(self, provider):
     curr_runsource = interpreter_thread.interpreter.runsource
     def new_runsource(*args):
         locals = interpreter_thread.locals
-        locals['func'] = binja_function.current_function
+        locals['f'] = binja_function.current_function
         locals['mlil'] = binja_function.current_function.medium_level_il
         locals['mlilssa'] = binja_function.current_function.medium_level_il.ssa_form
         locals['h'] = binja_function.current_address
         locals['tags'] = tags.tagsdb
+        locals['func'] = binja_function.BinjaFunction(binja_function.current_function)
         curr_runsource(*args)
 
     interpreter_thread.interpreter.runsource = new_runsource
