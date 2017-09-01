@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = binjascripts
 SOURCEDIR     = source
-BUILDDIR      = build
+BUILDDIR      = /Users/cduplant/workspace/binjascripts-docs/html
 
 # Put it first so that "make" without argument is like "make help".
 help:

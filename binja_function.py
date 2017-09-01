@@ -42,7 +42,7 @@ class BinjaFunction(object):
         :param int/long addr: Address to look for containing function
         :return: Name of function containing an address
         :rtype: str
-        :Example
+        :Example:
 
             >>> func.name()
             'main'
@@ -66,7 +66,7 @@ class BinjaFunction(object):
 
         :return: List of addresses of cross references to the current function
         :rtype: List(ReferenceSource)
-        :Example
+        :Example:
 
             >>> [(hex(ref.address), ref.function.name, hex(ref.function.start)) for ref in func.down()]
             [('0x80485dcL', '__libc_start_main', '0x8048580L')]
