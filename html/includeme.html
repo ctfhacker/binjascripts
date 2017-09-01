@@ -1,0 +1,128 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&lt;no title&gt; &#8212; binjascripts  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to binjascripts’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p># BinjaScripts</p>
+<p>Heavily inspired by the work by Aaron Portnoy and arizvisa on [using IDA Pro as a Data Store](<a class="reference external" href="https://www.youtube.com/watch">https://www.youtube.com/watch</a>?v=A4yXdir_59E#).</p>
+<p>## Features</p>
+<p>Shortened API for faster Binja terminal hacking..</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">func</span> <span class="pre">-</span> <span class="pre">current_function</span>
+<span class="pre">mlil</span> <span class="pre">-</span> <span class="pre">current_function.medium_level_il</span>
+<span class="pre">mlilssa</span> <span class="pre">-</span> <span class="pre">current_function.medium_level_il.ssa_form</span>
+<span class="pre">`</span></code></p>
+<p>### Tag system</p>
+<p>Creating new tags</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">tags.add(address,</span> <span class="pre">tagname,</span> <span class="pre">data)</span>
+<span class="pre">`</span></code></p>
+<p>Querying existing tags</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">tags.select(tagname)</span>
+<span class="pre">tags.select(address)</span>
+<span class="pre">tags.select(address,</span> <span class="pre">tagname)</span>
+<span class="pre">tags.select(tagname,</span> <span class="pre">address)</span>
+<span class="pre">`</span></code></p>
+<p>## Building the docs</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sphinx</span>
+<span class="pre">`</span></code></p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">sphinx-apidoc</span> <span class="pre">-f</span> <span class="pre">-o</span> <span class="pre">docs/source/</span> <span class="pre">.;</span> <span class="pre">cd</span> <span class="pre">docs/;</span> <span class="pre">make</span> <span class="pre">clean;</span> <span class="pre">make</span> <span class="pre">html;</span> <span class="pre">cd</span> <span class="pre">..</span>
+<span class="pre">`</span></code></p>
+<p>## License</p>
+<p>This plugin is released under a [MIT](LICENSE) license.</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">binjascripts</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to binjascripts’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Cory Duplantis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/includeme.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

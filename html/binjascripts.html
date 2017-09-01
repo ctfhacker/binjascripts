@@ -1,0 +1,310 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>binjascripts package &#8212; binjascripts  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="binjascripts-package">
+<h1>binjascripts package<a class="headerlink" href="#binjascripts-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-binjascripts.binja_function">
+<span id="binjascripts-binja-function-module"></span><h2>binjascripts.binja_function module<a class="headerlink" href="#module-binjascripts.binja_function" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="binjascripts.binja_function.BinjaFunction">
+<em class="property">class </em><code class="descclassname">binjascripts.binja_function.</code><code class="descname">BinjaFunction</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.binja_function.BinjaFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="binjascripts.binja_function.BinjaFunction.down">
+<code class="descname">down</code><span class="sig-paren">(</span><em>addr=''</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.binja_function.BinjaFunction.down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of cross references to calls in the current function</p>
+<p>Note: Does not current handle indirect calls</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of addresses of cross references to the current function</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">List(ReferenceSource)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[(</span><span class="nb">hex</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">address</span><span class="p">),</span> <span class="n">ref</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">start</span><span class="p">))</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">down</span><span class="p">()]</span>
+<span class="go">[(&#39;0x80485dcL&#39;, &#39;__libc_start_main&#39;, &#39;0x8048580L&#39;)]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="binjascripts.binja_function.BinjaFunction.name">
+<code class="descname">name</code><span class="sig-paren">(</span><em>addr=''</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.binja_function.BinjaFunction.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the function containing an address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>addr</strong> (<em>int/long</em>) – Address to look for containing function</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Name of function containing an address</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">func</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+<span class="go">&#39;main&#39;</span>
+</pre></div>
+</div>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">func</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="go">&#39;main&#39;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="binjascripts.binja_function.BinjaFunction.up">
+<code class="descname">up</code><span class="sig-paren">(</span><em>addr=''</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.binja_function.BinjaFunction.up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of cross references to the current function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of addresses of cross references to the current function</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">List(ReferenceSource)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">address</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">up</span><span class="p">()]</span>
+<span class="go">[134516073L, 134514459L]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[(</span><span class="n">ref</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">address</span><span class="p">)</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">up</span><span class="p">()]</span>
+<span class="go">[(&#39;sub_8048cad&#39;, 134516073L), (&#39;main&#39;, 134514459L)]</span>
+</pre></div>
+</div>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">address</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">up</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
+<span class="go">[134516073L, 134514459L]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-binjascripts.binja_view">
+<span id="binjascripts-binja-view-module"></span><h2>binjascripts.binja_view module<a class="headerlink" href="#module-binjascripts.binja_view" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-binjascripts.tags">
+<span id="binjascripts-tags-module"></span><h2>binjascripts.tags module<a class="headerlink" href="#module-binjascripts.tags" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="binjascripts.tags.TagsDatabase">
+<em class="property">class </em><code class="descclassname">binjascripts.tags.</code><code class="descname">TagsDatabase</code><span class="sig-paren">(</span><em>bv</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.tags.TagsDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Database containing the dictionary of tags in the current database.</p>
+<p><code class="docutils literal"><span class="pre">TagsDatabase</span></code> must also hold the <code class="docutils literal"><span class="pre">BinaryView</span></code> in order to query/add comments and query function information.</p>
+<p>Dict Structure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="mh">0xdeadbeef</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;synopsis&#39;</span><span class="p">:</span> <span class="s1">&#39;Calls vulnerable function&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;calls&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gets&#39;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="mh">0xcafebabe</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;synopsis&#39;</span><span class="p">:</span> <span class="s1">&#39;Wrapper around function&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;break&#39;</span><span class="p">:</span> <span class="s1">&#39;.printf &quot;Useful wrapper&quot;&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;synopsis&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mh">0xdeadbeef</span><span class="p">,</span> <span class="mh">0xdeadbeef</span><span class="p">],</span>
+    <span class="s1">&#39;calls&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mh">0xdeadbeef</span><span class="p">],</span>
+    <span class="s1">&#39;break&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mh">0xcafebabe</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="binjascripts.tags.TagsDatabase.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>address</em>, <em>tagname</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.tags.TagsDatabase.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a tag to the database at a given address.</p>
+<p>There can only be one entry per tagname per address. Will also add comments for each tag at the given address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<em>str</em>) – Address to apply the tag to</li>
+<li><strong>tagname</strong> (<em>str</em>) – Name of the tag being applied</li>
+<li><strong>data</strong> (<em>str</em>) – Tag data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s1">&#39;note&#39;</span><span class="p">,</span> <span class="s1">&#39;testing tags&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="binjascripts.tags.TagsDatabase.select">
+<code class="descname">select</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.tags.TagsDatabase.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all tags with the given tagname</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr/tagname</strong> (<em>str/int/long</em>) – Address or Tagname</li>
+<li><strong>addr/tagname</strong> – Address or Tagname</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Requested tags or addresses</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">dict/list/str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s1">&#39;note&#39;</span><span class="p">,</span> <span class="s1">&#39;testing tags&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
+<span class="go">{&#39;note&#39;: &#39;testing tags&#39;}</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;note&#39;</span><span class="p">)</span>
+<span class="go">[134515550L]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">here</span><span class="p">,</span> <span class="s1">&#39;note&#39;</span><span class="p">)</span>
+<span class="go">&#39;testing tags&#39;</span>
+</pre></div>
+</div>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tags</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;note&#39;</span><span class="p">,</span> <span class="n">here</span><span class="p">)</span>
+<span class="go">&#39;testing tags&#39;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-binjascripts">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-binjascripts" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="binjascripts.new_init">
+<code class="descclassname">binjascripts.</code><code class="descname">new_init</code><span class="sig-paren">(</span><em>self</em>, <em>provider</em><span class="sig-paren">)</span><a class="headerlink" href="#binjascripts.new_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">binjascripts</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Cory Duplantis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/binjascripts.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
