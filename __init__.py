@@ -61,6 +61,8 @@ def new_init(self, provider):
     def new_runsource(*args):
         locals = interpreter_thread.locals
         locals['f'] = binja_function.current_function
+        locals['llil'] = binja_function.current_function.low_level_il
+        locals['llilssa'] = binja_function.current_function.low_level_il.ssa_form
         locals['mlil'] = binja_function.current_function.medium_level_il
         locals['mlilssa'] = binja_function.current_function.medium_level_il.ssa_form
         locals['h'] = binja_function.current_address

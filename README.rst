@@ -7,7 +7,9 @@ Heavily inspired by the work by Aaron Portnoy and arizvisa on [using IDA Pro as 
 Shortened API for faster Binja terminal hacking..
 
 ```
-func - current_function
+f - current_function
+llil - current_function.low_level_il
+llilssa - current_function.low_level_il.ssa_form
 mlil - current_function.medium_level_il
 mlilssa - current_function.medium_level_il.ssa_form
 ```
