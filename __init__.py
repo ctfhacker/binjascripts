@@ -25,7 +25,7 @@ def new_init(self, provider):
     def new_set_current_binary_view(new_view):
         # Store old TagsDB in old View
         if self.interpreter.current_view and tags.tagsdb:
-            tags.tagsdb.bv = None
+            tags.tagsdb._bv = None
             self.interpreter.current_view.store_metadata('tagsdb', pickle.dumps(tags.tagsdb))
 
         # Set new view
@@ -38,11 +38,14 @@ def new_init(self, provider):
         # Load current view's TagsDB
         try:
             tags.tagsdb = pickle.loads(new_view.query_metadata('tagsdb'))
-            tags.tagsdb.bv = new_view
+            tags.tagsdb._bv = new_view
         except KeyError:
             tags.tagsdb = tags.TagsDatabase(new_view)
 
     self.perform_set_current_binary_view = new_set_current_binary_view
+    """
+    End Hook perform_set_current_function
+    """
 
     """
     Hook perform_set_current_address
@@ -52,6 +55,9 @@ def new_init(self, provider):
         binja_function.current_address = new_address
 
     self.perform_set_current_address = new_set_current_address
+    """
+    End Hook perform_set_current_address
+    """
 
     """
     Hook interpreter.runsource
