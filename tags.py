@@ -54,8 +54,38 @@ class TagsDatabase(object):
         }
     """
     def __init__(self, bv):
-        self._db = {}
+        # self._db = {}
         self._bv = bv
+        self._addresses = defaultdict(dict)
+        self._tagnames = defaultdict(set)
+        self._functions = defaultdict(set)
+
+    def __getitem__(self, i):
+        return self._tagnames.get(i) or self._addresses.get(i) or self._functions.get(i)
+
+    @property
+    def keys(self):
+        return list(self._tagnames.keys()) + list(self._functions.keys()) + self._addresses.keys()
+
+    @property
+    def tags(self):
+        return list(self._tagnames.keys())
+
+    @property
+    def names(self):
+        return list(self._tagnames.keys())
+
+    @property
+    def tagnames(self):
+        return list(self._tagnames.keys())
+
+    @property
+    def functions(self):
+        return list(self._functions.keys())
+
+    @property
+    def addresses(self):
+        return self._addresses.keys()
 
     def add(self, address, tagname, data):
         """
@@ -80,6 +110,7 @@ class TagsDatabase(object):
             return
 
         for curr_func in curr_funcs:
+            """
             if self._db.get(address) == None:
                     self._db[address] = {}
 
@@ -88,10 +119,15 @@ class TagsDatabase(object):
 
             if self._db.get(curr_func.name) == None:
                     self._db[curr_func.name] = set()
+            """
 
-            self._db[address][tagname] = data
-            self._db[tagname].add(address)
-            self._db[curr_func.name].add(address)
+            self._addresses[address][tagname] = data
+            self._tagnames[tagname].add(address)
+            self._functions[curr_func.name].add(address)
+
+            # self._db[address][tagname] = data
+            # self._db[tagname].add(address)
+            # self._db[curr_func.name].add(address)
 
             tags = self.select_addr(address)
 
@@ -113,6 +149,8 @@ class TagsDatabase(object):
 
                     for xref_func in xref_funcs:
                         xref_func.set_comment_at(xref, new_tag)
+
+        self.save()
 
     def _create_tag(self, tagname, data):
         """
@@ -161,9 +199,9 @@ class TagsDatabase(object):
                 print("tags.select can only take long/ints for addresses and str for tagnames. {} not available".format(type(arg)))
                 return
             if isinstance(arg, (int, long)):
-                return self._db.get(arg)
+                return self._addresses.get(arg, 'Address 0x{:x} not found'.format(arg))
             elif isinstance(arg, str):
-                return self._db.get(arg, 'Tag {} not found'.format(arg))
+                return self._functions.get(arg, 'Tag {} not found'.format(arg))
 
         elif len(args) == 2:
             for arg in args:
@@ -175,10 +213,12 @@ class TagsDatabase(object):
                 return
             if isinstance(args[0], (long, int)) and isinstance(args[1], str):
                 addr, tagname = args
-                return self._db.get(addr, {}).get(tagname)
+                # return self._db.get(addr, {}).get(tagname)
+                return self._addresses.get(address, {}).get(tagname)
             elif isinstance(args[0], (str)) and isinstance(args[1], (long, int)):
                 tagname, addr = args
-                return self._db.get(addr, {}).get(tagname)
+                # return self._db.get(addr, {}).get(tagname)
+                return self._addresses.get(address, {}).get(tagname)
             else:
                 print("Not sure what was given to tags.select.. shouldn't get here")
 
@@ -219,12 +259,13 @@ class TagsDatabase(object):
 
             result = {}
             for tagname in tagnames:
-                result[tagname] = self._db.get(addr, {}).get(tagname)
+                # result[tagname] = self._db.get(addr, {}).get(tagname)
+                result[tagname] = self._addresses.get(addr, {}).get(tagname)
 
             return result
 
         else:
-            return self._db.get(addr)
+            return self._addresses.get(addr)
 
     def select_func(self, func, tagnames=''):
         """
@@ -267,7 +308,7 @@ class TagsDatabase(object):
             print("Function {} is not of type binaryninja.function.Function or str".format(func))
             return
 
-        if func_name not in self._db:
+        if func_name not in self._functions:
             return defaultdict(dict)
 
         result = defaultdict(list)
@@ -285,20 +326,30 @@ class TagsDatabase(object):
                     raise Exception("All tagnames passed to tags.select_addr must be strings")
 
             for tagname in tagnames:
-                for addr in self._db[func]:
-                    if addr not in self._db:
+                for addr in self._functions[func]:
+                    if addr not in self._addresses:
                         continue
-                    if tagname not in self._db[addr]:
+                    if tagname not in self._addresses[addr]:
                         continue
 
-                    curr_tag = self._db[addr][tagname]
+                    curr_tag = self._addresses[addr][tagname]
                     tuple_res = (addr, curr_tag)
                     result[tagname].append(tuple_res)
 
         else:
-            for addr in self._db.get(func_name, {}):
-                for tagname, tag in self._db[addr].iteritems():
+            for addr in self._functions.get(func_name, set()):
+                for tagname, tag in self._addresses[addr].iteritems():
                     tuple_res = (addr, tag)
                     result[tagname].append(tuple_res)
 
         return result
+
+    def save(self):
+        """
+        Saves the TagsDatabase into the BinaryView
+        """
+        import pickle, copy
+        bv = copy.copy(self._bv)
+        self._bv = None
+        bv.store_metadata('tagsdb', pickle.dumps(self))
+        self._bv = bv
