@@ -1,7 +1,9 @@
 from binaryninja import scriptingprovider
+
 import binja_function
 import binja_view
 import tags
+
 import cPickle as pickle
 
 curr_init = scriptingprovider.PythonScriptingInstance.__init__
@@ -67,13 +69,13 @@ def new_init(self, provider):
     def new_runsource(*args):
         locals = interpreter_thread.locals
         locals['f'] = binja_function.current_function
-        locals['llil'] = binja_function.current_function.low_level_il
-        locals['llilssa'] = binja_function.current_function.low_level_il.ssa_form
-        locals['mlil'] = binja_function.current_function.medium_level_il
-        locals['mlilssa'] = binja_function.current_function.medium_level_il.ssa_form
+        locals['llil'] = binja_function.current_function.low_level_il if binja_function.current_function else 'Not Available'
+        locals['llilssa'] = binja_function.current_function.low_level_il.ssa_form if binja_function.current_function else 'Not Available'
+        locals['mlil'] = binja_function.current_function.medium_level_il if binja_function.current_function else 'Not Available'
+        locals['mlilssa'] = binja_function.current_function.medium_level_il.ssa_form if binja_function.current_function else 'Not Available'
         locals['h'] = binja_function.current_address
         locals['tags'] = tags.tagsdb
-        locals['func'] = binja_function.BinjaFunction(binja_function.current_function)
+        locals['func'] = binja_function.BinjaFunction(binja_function.current_function) if binja_function.current_function else 'Not Available'
         curr_runsource(*args)
 
     interpreter_thread.interpreter.runsource = new_runsource
