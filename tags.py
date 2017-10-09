@@ -201,7 +201,10 @@ class TagsDatabase(object):
             if isinstance(arg, (int, long)):
                 return self._addresses.get(arg, 'Address 0x{:x} not found'.format(arg))
             elif isinstance(arg, str):
-                return self._functions.get(arg, 'Tag {} not found'.format(arg))
+                # Check functions
+                funcs = self._functions.get(arg, set())
+                tags = self._tagnames.get(arg, set())
+                return [(x, self._addresses.get(x)[arg]) for x in funcs.union(tags)]
 
         elif len(args) == 2:
             for arg in args:
@@ -353,3 +356,6 @@ class TagsDatabase(object):
         self._bv = None
         bv.store_metadata('tagsdb', pickle.dumps(self))
         self._bv = bv
+
+    def query(self, query_str):
+        return [(addr, k, v) for (addr, addr_dict) in self._addresses.iteritems() for (k, v) in addr_dict.iteritems() if query_str in v]
