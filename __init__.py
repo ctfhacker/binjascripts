@@ -1,8 +1,14 @@
 from binaryninja import scriptingprovider
 
+
+"""
+Binjascripts custom modules
+"""
 import binja_function
 import binja_view
 import tags
+from utils import Utils
+import slices
 
 import cPickle as pickle
 
@@ -76,6 +82,8 @@ def new_init(self, provider):
         locals['h'] = binja_function.current_address
         locals['tags'] = tags.tagsdb
         locals['func'] = binja_function.BinjaFunction(binja_function.current_function) if binja_function.current_function else 'Not Available'
+        locals['utils'] = Utils(binja_view.current_view)
+        locals['slices'] = slices
         curr_runsource(*args)
 
     interpreter_thread.interpreter.runsource = new_runsource
