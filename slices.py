@@ -90,6 +90,8 @@ def backward(instruction):
 
     while instruction_queue.qsize() > 0:
         curr_path = instruction_queue.get()
+        print(curr_path)
+
         visit_index = curr_path[-1].instr_index
         instruction_to_visit = ssa[visit_index]
 
@@ -113,7 +115,12 @@ def backward(instruction):
                 (Pdb) curr_path[-1].src.src.var
                 <var void* arg3>
                 """
-                param_num = list(ssa.source_function.parameter_vars).index(curr_path[-1].src.src.var)
+                try:
+                    param_num = list(ssa.source_function.parameter_vars).index(curr_path[-1].src.src.var)
+                except ValueError:
+                    results.append(curr_path[:])
+                    continue
+                    
                 bv = ssa.source_function.view
                 xrefs = bv.get_code_refs(ssa.source_function.start)
                 for xref in xrefs:
