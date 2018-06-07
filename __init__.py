@@ -35,6 +35,8 @@ def new_init(self, provider):
         locals['func'] = binja_function.BinjaFunction(binja_function.current_function) if binja_function.current_function else 'Not Available'
         locals['utils'] = Utils(binja_view.current_view)
         locals['slices'] = slices
+        locals['bvs'] = locals['utils'].bvs
+        locals['s'] = locals['utils'].dirsearch
 
     self.perform_set_current_function = new_set_current_function
 

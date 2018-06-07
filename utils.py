@@ -31,3 +31,31 @@ class Utils(object):
                         pass
 
         return cmps
+
+    def dirsearch(self, obj, word):
+        """
+        Search for methods in generic Object matching `word`
+
+        :param str word: String to look for in object
+        :return: List of method names containing the given word
+        :rtype: list(str)
+        :Example:
+            
+            >>> s(bv, 'user')
+            ['add_user_section', 'add_user_segment', 'create_user_function', 'define_user_data_var', 'define_user_symbol', 'define_user_type', 'remove_user_function', 'remove_user_section', 'remove_user_segment', 'undefine_user_data_var', 'undefine_user_symbol', 'undefine_user_type']
+        """
+        return [x for x in dir(obj) if word in x]
+
+    def bvs(self, word):
+        """
+        Search for methods in BinaryView matching `word`
+
+        :param str word: String to look for in bv
+        :return: List of method names containing the given word
+        :rtype: list(str)
+        :Example:
+            
+            >>> bvs('user')
+            ['add_user_section', 'add_user_segment', 'create_user_function', 'define_user_data_var', 'define_user_symbol', 'define_user_type', 'remove_user_function', 'remove_user_section', 'remove_user_segment', 'undefine_user_data_var', 'undefine_user_symbol', 'undefine_user_type']
+        """
+        return self.dirsearch(self._bv, word)
